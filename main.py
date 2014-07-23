@@ -9,7 +9,8 @@ def main():
     timestamp = datetime.datetime.utcnow()
 
     # extract facebook api data
-    facebook_results = facebook_crawler.run(total_seeds)
+    total_locations = [{"name": "Toronto", "latitude": "43.700", "longitude": "79.4000"}]
+    facebook_results = facebook_crawler.run(total_locations)
     final_results = []
     
     for i, item in enumerate(facebook_results):
