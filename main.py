@@ -1,17 +1,19 @@
 from src.util import csv_io
 from src import facebook_crawler
 
+import datetime
 
 DEBUG = True
 
 def main():
 
     timestamp = datetime.datetime.utcnow()
+    t = str(timestamp)
+    final_results = []
 
     # extract facebook api data
-    total_locations = [{"name": "Toronto", "latitude": "43.700", "longitude": "79.4000"}]
+    total_locations = [{"id": "1011", "name": "Toronto", "latitude": "40.1811", "longitude": "44.5136"}]
     facebook_results = facebook_crawler.run(total_locations)
-    final_results = []
     
     for i, item in enumerate(facebook_results):
         temp = []
