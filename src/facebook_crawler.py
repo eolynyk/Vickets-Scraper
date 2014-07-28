@@ -3,10 +3,12 @@ from util.secret import *
 
 
 def run(locations):
+    # register facebook api credentials
     oauth_access_token = facebook.get_app_access_token(APP_ID, APP_SECRET)
     graph = facebook.GraphAPI(oauth_access_token)
     results = {}
 
+    # loop through each geo latlong for which to return events
     for item in locations:
         temp = []
         try:
@@ -27,9 +29,13 @@ def run(locations):
                                     and start_time > now() ORDER BY start_time desc limit 0,1500
                                 """.format(item["latitude"],item["longitude"])
             response = graph.fql(fql_query_string)
+            
+            # loop through all events returned by fb api for current geo latlong
             for event in response:
                 temp.append(event)
-            results[locations['id']] = temp
+
+            results[item['id']] = temp
+
         except:
             print("Suppressed Exception")
 

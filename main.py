@@ -3,7 +3,7 @@ from src import facebook_crawler
 
 import datetime
 
-DEBUG = True
+DEBUG = False
 
 def main():
 
@@ -11,17 +11,26 @@ def main():
     t = str(timestamp)
     final_results = []
 
-    # extract facebook api data
+    # pull locations from database
     total_locations = [{"id": "1011", "name": "Toronto", "latitude": "40.1811", "longitude": "44.5136"}]
-    facebook_results = facebook_crawler.run(total_locations)
     
-    for i, item in enumerate(facebook_results):
-        temp = []
+    # extract facebook api data
+    facebook_results = facebook_crawler.run(total_locations)
+
+    for key in facebook_results.keys():
         try:
             #populate final_results_array
-            final_results.append()
+            for event in facebook_results[key]:
+                temp = []
+                temp.append(key)
+                for field in event.keys():
+                    temp.append(event[field])
+                final_results.append(temp)
         except:
             pass
+
+    # write output to mysql database
+    print(final_results)
 
     # write output to redshift/upworthy table and log locally as a csv
     if DEBUG == True:
