@@ -12,7 +12,7 @@ def main():
     final_results = []
 
     # pull locations from database
-    total_locations = [{"id": "1011", "name": "Toronto", "latitude": "40.1811", "longitude": "44.5136"}]
+    total_locations = [{"id": "1011", "name": "Victoria", "latitude": "48.461917", "longitude": "-123.310416"}]
     
     # extract facebook api data
     facebook_results = facebook_crawler.run(total_locations)
@@ -29,9 +29,10 @@ def main():
         except:
             pass
 
-    # write output to mysql database
-    print(final_results)
-
+    # TODO: write output to mysql database
+    if DEBUG == False:
+        print(final_results)
+        
     # write output to redshift/upworthy table and log locally as a csv
     if DEBUG == True:
         filename = t[0:4] + t[5:7] + t[8:10] + t[11:13] + t[14:16] + t[17:19] + ".csv"
